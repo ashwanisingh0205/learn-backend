@@ -4,7 +4,10 @@ mongoose.connect('mongodb://localhost:27017/user')
 const userschema=mongoose.Schema({
   name:String,
   username:String,
-  age:Number,
+  age:{
+    type:Number,
+    require:true
+  },
   email:String,
   password:String,
   profilepic:{

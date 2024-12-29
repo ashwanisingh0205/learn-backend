@@ -6,6 +6,7 @@ import User from './models/users.js';
 import postuser from './models/post.js';
 import cookieParser from 'cookie-parser';
 app.set('view engine','ejs')
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
@@ -77,8 +78,10 @@ app.post('/register',async(req,res)=>{
 app.post('/login',async(req,res)=>{
    let {email,password}=req.body
    let user=await User.findOne({email})
-   if(!user)return res.status(500).send('something went wrong')
+   // if(!user)return res.status(500).send('something went wrong')
+    
  bcrypt.compare(password,user.password,(err,result)=>{
+//   console.log(result)
 
 if(result){ let token=jwt.sign({email:email,userid:user._id},'shh')
    res.cookie('token',token)
